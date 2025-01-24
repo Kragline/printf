@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:59:57 by armarake          #+#    #+#             */
-/*   Updated: 2025/01/24 17:24:41 by armarake         ###   ########.fr       */
+/*   Updated: 2025/01/24 21:48:01 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	ft_parse_formatter(const char *str, va_list args)
 {
 	size_t	bytes;
-	(void) args;
+
 	bytes = 0;
 	if (*str == '%')
 		bytes += f_putchar('%');
@@ -23,13 +23,15 @@ size_t	ft_parse_formatter(const char *str, va_list args)
 		bytes += f_putchar(va_arg(args, int));
 	if (*str == 's')
 		bytes += f_putstr(va_arg(args, char *));
+	if (*str == 'i' || *str == 'd')
+		bytes += f_putnbr(va_arg(args, int));
 	return (bytes);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	size_t	bytes;
-	va_list args;
+	va_list	args;
 
 	bytes = 0;
 	va_start(args, str);
@@ -38,8 +40,7 @@ int	ft_printf(const char *str, ...)
 		if (*str == '%')
 		{
 			str++;
-			bytes += ft_parse_formatter(str, args);
-			str++;
+			bytes += ft_parse_formatter(str++, args);
 		}
 		else
 		{
@@ -54,6 +55,6 @@ int	ft_printf(const char *str, ...)
 #include <stdio.h>
 int main(void)
 {
-	printf("ft_printf bytes -> %d\n", ft_printf("my man is 100%% goo%c %s\n", 'd', "guy"));
-	printf("printf bytes -> %d\n", printf("my man is 100%% goo%c %s\n", 'd', "guy"));
+	printf("ft_printf bytes -> %d\n", ft_printf("Num 1: %d Num2: %d\n", 10, -10));
+	printf("printf bytes -> %d\n", printf("Num 1: %d Num2: %d\n", 10, -10));
 }
