@@ -1,0 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/25 17:01:48 by armarake          #+#    #+#             */
+/*   Updated: 2025/01/25 17:01:48 by armarake         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+
+size_t	byte_puthex(unsigned long long nbr, int upper)
+{
+	size_t	bytes;
+	char	*digits;
+
+	if (upper)
+		digits = "0123456789ABCDEF";
+	else
+		digits = "0123456789abcdef";
+	bytes = 0;
+	if (nbr >= 16)
+	{
+		bytes += byte_puthex(nbr / 16, upper);
+		bytes += byte_putchar(digits[nbr % 16]);
+	}
+	else
+		bytes += byte_putchar(digits[nbr]);
+	return (bytes);
+}
+
+size_t	byte_putpointer(unsigned long long nbr)
+{
+	size_t	bytes;
+
+	bytes = 0;
+	if (!nbr)
+	{
+		bytes += byte_putstr("(nil)");
+		return (bytes);
+	}
+	bytes += byte_putstr("0x");
+	bytes += byte_puthex(nbr, 0);
+	return (bytes);
+}
