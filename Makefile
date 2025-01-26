@@ -7,7 +7,7 @@ CCFLAGS = -Wextra -Werror -Wall
 LIBFT = ./libft
 
 SRCS = $(LIBFT)/ft_strlen.c $(LIBFT)/ft_putstr_fd.c $(LIBFT)/ft_putchar_fd.c \
-	$(LIBFT)/ft_putnbr_fd.c ft_printf.c ft_puthex.c ft_pututils.c
+	$(LIBFT)/ft_itoa.c $(LIBFT)/ft_strdup.c ft_printf.c ft_puthex.c ft_pututils.c
 
 OBJS := $(SRCS:%.c=%.o)
 

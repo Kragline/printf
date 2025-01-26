@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:46:30 by armarake          #+#    #+#             */
-/*   Updated: 2025/01/26 00:09:47 by armarake         ###   ########.fr       */
+/*   Updated: 2025/01/26 14:14:22 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,14 @@ size_t	byte_putstr(char *str)
 
 size_t	byte_putnbr(int nbr)
 {
-	size_t	len;
+	size_t	bytes;
+	char	*res;
 
-	ft_putnbr_fd(nbr, 1);
-	len = 0;
-	if (nbr < 0)
-	{
-		nbr = -nbr;
-		len++;
-	}
-	while (nbr)
-	{
-		nbr /= 10;
-		len++;
-	}
-	return (len);
+	bytes = 0;
+	res = ft_itoa(nbr);
+	bytes = byte_putstr(res);
+	free(res);
+	return (bytes);
 }
 
 size_t	byte_putunsigned(unsigned int nbr)
