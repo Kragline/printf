@@ -11,7 +11,7 @@ SRCS = $(LIBFT)/ft_strlen.c $(LIBFT)/ft_putstr_fd.c $(LIBFT)/ft_putchar_fd.c \
 
 OBJS := $(SRCS:%.c=%.o)
 
-%.o: %.c Makefile $(LIBFT)/libft.h printf.h
+%.o: %.c Makefile $(LIBFT)/libft.h ft_printf.h
 	$(CC) $(CCFLAGS) -I$(LIBFT) -c $< -o $@
 
 all: $(NAME)
