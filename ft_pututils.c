@@ -14,30 +14,36 @@
 
 size_t	byte_putchar(char chr)
 {
-	ft_putchar_fd(chr, 1);
-	return (sizeof(chr));
+	return (write(1, &chr, 1));
 }
 
 size_t	byte_putstr(char *str)
 {
+	size_t	bytes;
+
 	if (str == NULL)
-	{
-		ft_putstr_fd("(null)", 1);
-		return (6);
-	}
-	ft_putstr_fd(str, 1);
-	return (ft_strlen(str));
+		return (byte_putstr("(null)"));
+	bytes = 0;
+	while (*str)
+		bytes += byte_putchar(*str++);
+	return (bytes);
 }
 
 size_t	byte_putnbr(int nbr)
 {
 	size_t	bytes;
-	char	*res;
 
 	bytes = 0;
-	res = ft_itoa(nbr);
-	bytes = byte_putstr(res);
-	free(res);
+	if (nbr == -2147483648)
+		return (write(1, "-2147483648", 11));
+	if (nbr < 0)
+	{
+		bytes += byte_putchar('-');
+		nbr = -nbr;
+	}
+	if (nbr > 9)
+		bytes += byte_putnbr(nbr / 10);
+	bytes += byte_putchar((nbr % 10) + '0');
 	return (bytes);
 }
 

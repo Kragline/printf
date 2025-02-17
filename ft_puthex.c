@@ -23,12 +23,8 @@ size_t	byte_puthex(unsigned long long nbr, int upper)
 		digits = "0123456789abcdef";
 	bytes = 0;
 	if (nbr >= 16)
-	{
 		bytes += byte_puthex(nbr / 16, upper);
-		bytes += byte_putchar(digits[nbr % 16]);
-	}
-	else
-		bytes += byte_putchar(digits[nbr]);
+	bytes += byte_putchar(digits[nbr % 16]);
 	return (bytes);
 }
 
